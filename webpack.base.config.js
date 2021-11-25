@@ -1,13 +1,11 @@
 const path = require('path');
 
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const postcssPresetEnv = require('postcss-preset-env');
 
 let config = {
 	entry: {
-		app: './src/js/app.ts'
+		app: './src/app.ts'
 	},
 
 	output: {
@@ -50,45 +48,7 @@ let config = {
 				use: [
 					MiniCssExtractPlugin.loader,
 					'css-loader',
-					{
-						loader: 'postcss-loader',
-						options: {
-              postcssOptions: {
-                plugins: [postcssPresetEnv()],
-              }
-            }
-					}
 				]
-			},
-			{
-				test: /\.less$/i,
-				use: [
-					MiniCssExtractPlugin.loader,
-					'css-loader',
-					'less-loader',
-					{
-						loader: 'postcss-loader',
-						options: {
-              postcssOptions: {
-                plugins: [postcssPresetEnv()],
-              }
-            }
-					}
-				]
-			},
-			{
-				test: /\.(jpg|png|gif)$/,
-				type: 'asset/resource',
-				generator: {
-					filename: 'images/[hash][ext][query]'
-				},
-			},
-			{
-				test: /\.(svg|woff|woff2|eot|ttf)$/,
-				type: 'asset/resource',
-				generator: {
-					filename: 'fonts/[name][ext]'
-				},
 			},
 			{
 				test: /\.html/,
@@ -104,7 +64,6 @@ let config = {
 	},
 
 	plugins: [
-		new CleanWebpackPlugin(),
 		new HtmlWebpackPlugin({
 			template: 'src/index.html',
 			scriptLoading: 'blocking'
